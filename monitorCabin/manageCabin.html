@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>智能监控驾驶舱(管理舱)</title>
+    <script type="text/javascript" src="assets/js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/echarts/echarts.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/echarts/map/js/china.js"></script>
+    <script type="text/javascript" src="assets/js/common.js"></script>
+    <link rel="stylesheet" type="text/css" href="assets/css/H-ui.reset.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+</head>
+<body>
+<div class="g-wrap">
+
+    <!-- 主背景 -->
+    <img class="bg" src="assets/images/bg1.png" />
+
+    <!-- 头部-标题区 -->
+    <div class="g-header">
+        <img class="logo-img" src="assets/images/logo_01.png" />
+        <img class="logo-title1" src="assets/images/header-name_03.png" />
+        <img class="logo-title2" src="assets/images/head-bg_01.png" />
+
+        <div class="curr-info">
+            <span class="curr-info-sp1">当前用户：</span>
+            <span class="curr-info-sp2" id="curr_user">超级管理员</span>
+            <span class="curr-info-sp1">信号数据时间：</span>
+            <span class="curr-info-sp2" id="curr_date">2018-12-22 11:54:00</span>
+        </div>
+    </div>
+
+    <!-- 内容区-左 -->
+    <div class="g-area-left" >
+
+        <div class="g-container" style="width: 100%; height: 50%;">
+            <div class="v-box" style="height: 100%;">
+                <div class="v-box-header">电网监控事件情况</div>
+                <div class="v-box-content" style="padding-top: 52px;">
+
+                    <table class="v-card-table">
+                        <tr>
+                            <td>
+                                <div class="v-card">
+                                    <p class="p1">缺陷</p>
+                                    <p class="p2 led-num">123</p>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="v-card">
+                                    <p class="p1">事故</p>
+                                    <p class="p2 led-num">123</p>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="v-card">
+                                    <p class="p1">检修</p>
+                                    <p class="p2 led-num">123</p>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="v-card">
+                                    <p class="p1">操作</p>
+                                    <p class="p2 led-num">123</p>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div id="ec1" style="width: 100%; height: 100%;"></div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="g-container" style="width: 100%; height: 50%;">
+            <div class="v-box" style="height: 100%;">
+                <div class="v-box-header">电网设备规模</div>
+                <div class="v-box-content">
+                    <table class="fancy-table1">
+                        <tr height="50px">
+                            <td colspan="2">
+                                <ul class="toggle-list">
+                                    <li>
+                                        <img class="img1" src="assets/images/polygon_6.png" alt="">
+                                        <img class="img2" src="assets/images/white_equip.png" alt="">
+                                        <span>设备增长规模</span>
+                                    </li>
+                                     <li>
+                                        <img class="img1" src="assets/images/polygon_6.png" alt="">
+                                        <img class="img2" src="assets/images/white_factory.png" alt="">
+                                        <span>生产厂家分布</span>
+                                    </li>
+                                     <li>
+                                        <img class="img1" src="assets/images/polygon_6.png" alt="">
+                                        <img class="img2" src="assets/images/white_time.png" alt="">
+                                        <span>运行年限分布</span>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td1"><span class="sp1">主变</span><span class="sp2">100</span><span class="sp3">台</span></td>
+                            <td rowspan="6">
+                                <div id="ec2" style="width: 100%; height: 100%;">
+
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td1"><span class="sp1">母线</span><span class="sp2">1000</span><span class="sp3">条</span></td>
+                        </tr>
+                        <tr>
+                            <td class="td1"><span class="sp1">电容</span><span class="sp2">100</span><span class="sp3">个</span></td>
+                        </tr>
+                        <tr>
+                            <td class="td1"><span class="sp1">电抗</span><span class="sp2">100</span><span class="sp3">个</span></td>
+                        </tr>
+                        <tr>
+                            <td class="td1"><span class="sp1">开关</span><span class="sp2">100</span><span class="sp3">个</span></td>
+                        </tr>
+                        <tr>
+                            <td class="td1"><span class="sp1">刀闸</span><span class="sp2">10</span><span class="sp3">个</span></td>
+                        </tr>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- 内容区-中 -->
+    <div class="g-area-center">
+        <div class="g-container" style="height: 100%; padding-top:20px;">
+
+            <div style="position: absolute; left: 0px; right: 0px; top: 0px; bottom: 146px; ">
+                <div class="v-show-list-container">
+                    <ul class="v-show-list" id="v-show-list1">
+                        <li data-title="变电站规模">
+                            <div class="v-map-title">全网变电站规模</div>
+                            <div class="v-map" id="ec_map1" ></div>
+                            <dl class="v-map-tip">
+                                <dt>图例</dt>
+                                <dd><img src="assets/images/icon_coord1.png" alt=""><span>核心变电站</span></dd>
+                                <dd><img src="assets/images/icon_coord2.png" alt=""><span>城区变电站</span></dd>
+                                <dd><img src="assets/images/icon_coord3.png" alt=""><span>远郊变电站</span></dd>
+                            </dl>
+                            <table class="v-map-table1">
+                                <tr><td>全网变电站总数</td><td><span class="data-span led-num">1024</span></td><td>座</td></tr>
+                                <tr><td>全网核心站数目</td><td><span class="data-span led-num">104</span></td><td>座</td></tr>
+                                <tr><td>全网城区站数目</td><td><span class="data-span led-num">23</span></td><td>座</td></tr>
+                                <tr><td>全网远郊站数目</td><td><span class="data-span led-num">300</span></td><td>座</td></tr>
+                            </table>
+                            <div class="v-map-form v-btn-group" role="group" onSelect="onSelect1">
+                              <button type="button" class="v-btn v-btn-select">全部</button>
+                              <button type="button" class="v-btn">1000kV</button>
+                              <button type="button" class="v-btn">750kV</button>
+                              <button type="button" class="v-btn">500kV</button>
+                            </div>
+                        </li>
+                        <li data-title="实时事故">
+                            <div class="v-map-title">全网实时事故情况</div>
+                            <div class="v-map" id="ec_map2"></div>
+                            <dl class="v-map-tip">
+                                <dt>图例</dt>
+                                <dd><img src="assets/images/icon_coord1.png" alt=""><span>负载有问题事故</span></dd>
+                                <dd><img src="assets/images/icon_coord3.png" alt=""><span>负载无问题事故</span></dd>
+                            </dl>
+                            <div class="v-map-form v-btn-group" role="group" onSelect="onSelect1">
+                              <button type="button" class="v-btn v-btn-select">全部</button>
+                              <button type="button" class="v-btn">1000kV</button>
+                              <button type="button" class="v-btn">750kV</button>
+                              <button type="button" class="v-btn">500kV</button>
+                            </div>
+                            <table class="v-map-table2">
+                                <tr><td>当前共发生事故</td><td><span class="data-span led-num">1024</span></td><td>起</td></tr>
+                            </table>
+                        </li>
+                        <li data-title="负载热力图">
+                            <div class="v-map-title">全网实时负载情况</div>
+                            <div class="v-map" id="ec_map3"></div>
+                            <dl class="v-map-tip">
+                                <dt>图例</dt>
+                                <dd><img src="assets/images/icon_coord1.png" alt=""><span>过载变电站</span></dd>
+                                <dd><img src="assets/images/icon_coord3.png" alt=""><span>重载变电站</span></dd>
+                            </dl>
+                            <div class="v-map-form v-btn-group" role="group" onSelect="onSelect1">
+                              <button type="button" class="v-btn v-btn-select">全部</button>
+                              <button type="button" class="v-btn">1000kV</button>
+                              <button type="button" class="v-btn">750kV</button>
+                              <button type="button" class="v-btn">500kV</button>
+                            </div>
+                            <table class="v-map-table2">
+                                <tr><td>全网过载站数</td><td><span class="data-span led-num">13</span></td><td>座</td></tr>
+                                <tr><td>全网重载站数</td><td><span class="data-span led-num">28</span></td><td>座</td></tr>
+                            </table>
+
+                            <table class="v-map-table3">
+                                <tr><th colspan="4" style="color:#ffff00;">负载率排名TOP5</th></tr>
+                                <tr><th>设备</th><th>额定</th><th>负荷</th><th>负载率</th></tr>
+                                <tr><td>杨高站#1主变</td><td>100</td><td>110</td><td>110%</td></tr>
+                                <tr><td>杨高站#1主变</td><td>100</td><td>110</td><td>110%</td></tr>
+                                <tr><td>杨高站#1主变</td><td>100</td><td>110</td><td>110%</td></tr>
+                                <tr><td>杨高站#1主变</td><td>100</td><td>110</td><td>110%</td></tr>
+                                <tr><td>杨高站#1主变</td><td>100</td><td>110</td><td>110%</td></tr>
+                            </table>
+                        </li>
+                        <li data-title="趋势预警">
+                            <div class="v-map-title">全网主变油温预测</div>
+                            <div class="v-map" id="ec_map4"></div>
+                            <dl class="v-map-tip">
+                                <dt>图例</dt>
+                                <dd><img src="assets/images/icon_coord1.png" alt=""><span>本体异常（危急）、红色采集异常</span></dd>
+                                <dd><img src="assets/images/icon_coord3.png" alt=""><span>本体异常（严重）、黄色采集异常</span></dd>
+                            </dl>
+                            <div class="v-map-form v-btn-group" role="group" onSelect="onSelect1">
+                              <button type="button" class="v-btn v-btn-select">全部</button>
+                              <button type="button" class="v-btn">1000kV</button>
+                              <button type="button" class="v-btn">750kV</button>
+                              <button type="button" class="v-btn">500kV</button>
+                            </div>
+
+                        </li>
+                        <li data-title="监控系统">
+                            <div class="v-map-title">监控系统调阅</div>
+                            <div class="v-map" id="ec_map5"></div>
+                            <dl class="v-map-tip">
+                                <dt>图例</dt>
+                                <dd><img src="assets/images/icon_coord4.png" alt=""><span>未接入</span></dd>
+                                <dd><img src="assets/images/icon_coord5.png" alt=""><span>链接正常</span></dd>
+                                <dd><img src="assets/images/icon_coord1.png" alt=""><span>链接异常</span></dd>
+                            </dl>
+                            <div class="v-map-form v-btn-group" role="group" onSelect="onSelect1">
+                              <button type="button" class="v-btn v-btn-select">全部</button>
+                              <button type="button" class="v-btn">1000kV</button>
+                              <button type="button" class="v-btn">750kV</button>
+                              <button type="button" class="v-btn">500kV</button>
+                            </div>
+                        </li>
+                        <li data-title="可视化系统">
+                            <div class="v-map-title">可视化系统调阅</div>
+                            <div class="v-map" id="ec_map6"></div>
+                            <dl class="v-map-tip">
+                                <dt>图例</dt>
+                                <dd><img src="assets/images/icon_coord4.png" alt=""><span>未接入</span></dd>
+                                <dd><img src="assets/images/icon_coord5.png" alt=""><span>链接正常</span></dd>
+                                <dd><img src="assets/images/icon_coord1.png" alt=""><span>链接异常</span></dd>
+                            </dl>
+                            <div class="v-map-form v-btn-group" role="group" onSelect="onSelect1">
+                              <button type="button" class="v-btn v-btn-select">全部</button>
+                              <button type="button" class="v-btn">1000kV</button>
+                              <button type="button" class="v-btn">750kV</button>
+                              <button type="button" class="v-btn">500kV</button>
+                            </div>
+                        </li>
+                        <li data-title="三维系统">
+                            <div class="v-map-title">三维系统调阅</div>
+                            <div class="v-map" id="ec_map7"></div>
+                            <dl class="v-map-tip">
+                                <dt>图例</dt>
+                                <dd><img src="assets/images/icon_coord4.png" alt=""><span>未接入</span></dd>
+                                <dd><img src="assets/images/icon_coord5.png" alt=""><span>链接正常</span></dd>
+                                <dd><img src="assets/images/icon_coord1.png" alt=""><span>链接异常</span></dd>
+                            </dl>
+                            <div class="v-map-form v-btn-group" role="group" onSelect="onSelect1">
+                              <button type="button" class="v-btn v-btn-select">全部</button>
+                              <button type="button" class="v-btn">1000kV</button>
+                              <button type="button" class="v-btn">750kV</button>
+                              <button type="button" class="v-btn">500kV</button>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+
+            <!-- 内容区-中-底部功能区 -->
+            <div style="position: absolute; left: 0px; right: 0px; bottom: 4px; height: 140px;">
+
+                <div class="v-tabs" id="tabs1">
+                    <ul class="v-tab-nav-list">
+                        <li class="select">常用统计内容</li>
+                        <li>系统常用菜单</li>
+                    </ul>
+                    <dl class="v-tab-list">
+                        <dt>
+                            <span>运行工作区</span>
+                            <img src="assets/images/ico1_tel.png" alt=""/>
+                            <img src="assets/images/ico1_email.png" alt=""/>
+                            <img src="assets/images/ico1_note.png" alt=""/>
+                            <img src="assets/images/ico1_set.png" alt=""/>
+
+                            <p style="position: absolute; top: 0; right: 4px;">
+                                <span>2016年08月08日 08:08:08</span> <img alt="" src="assets/images/wt_rain.png"> <span>10-15°C</span>
+                            </p>
+                        </dt>
+                        <dd class="active">
+                            <img src="assets/images/move_left.png" alt="" class="v-card-list-cl">
+                            <img src="assets/images/move_right.png" alt="" class="v-card-list-cr">
+                            <ul class="v-card-list" id="card-list1">
+                                <li class="select">
+                                    <img src="assets/images/jiaohu3_03.png">
+                                    <span class="hongquan" style="display: none;"></span>
+                                    <span class="card-title">变电站规模</span>
+                                </li>
+                                <li>
+                                    <img src="assets/images/jiaohu4_03.png">
+                                    <span class="hongquan">20</span>
+                                    <span class="card-title">实时事故</span>
+                                </li>
+                                <li>
+                                    <img src="assets/images/jiaohu5_03.png">
+                                    <span class="hongquan">2</span>
+                                    <span class="card-title">负载热力图</span>
+                                </li>
+                                <li>
+                                    <img src="assets/images/jiaohu6_03.png">
+                                    <span class="hongquan">21</span>
+                                    <span class="card-title">趋势预警</span>
+                               </li>
+                               <li>
+                                    <img src="assets/images/jiaohu6_03.png">
+                                    <span class="hongquan">21</span>
+                                    <span class="card-title">监控系统</span>
+                               </li>
+                               <li>
+                                    <img src="assets/images/jiaohu6_03.png">
+                                    <span class="hongquan">21</span>
+                                    <span class="card-title">可视化系统</span>
+                               </li>
+                               <li>
+                                    <img src="assets/images/jiaohu6_03.png">
+                                    <span class="hongquan">21</span>
+                                    <span class="card-title">三维系统</span>
+                               </li>
+                            </ul>
+                        </dd>
+                        <dd>
+                            <img src="assets/images/move_left.png" alt="" class="v-card-list-cl">
+                            <img src="assets/images/move_right.png" alt="" class="v-card-list-cr">
+                            <ul class="v-card-list" id="card-list2">
+                                <li class="select">
+                                    <img src="assets/images/jiaohu3_03.png">
+                                    <span class="hongquan" style="display: none;"></span>
+                                    <span class="card-title">电网事故分析</span>
+                                </li>
+                                <li>
+                                    <img src="assets/images/jiaohu4_03.png">
+                                    <span class="hongquan">20</span>
+                                    <span class="card-title">主变油温分析</span>
+                                </li>
+                                <li>
+                                    <img src="assets/images/jiaohu5_03.png">
+                                    <span class="hongquan">2</span>
+                                    <span class="card-title">设备异常分析</span>
+                                </li>
+                            </ul>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 内容区-右 -->
+    <div class="g-area-right">
+        <div class="g-container" style="width: 100%; height: 30%;">
+            <div class="v-box" style="height: 100%;">
+                <div class="v-box-header">全网信号情况</div>
+                <div class="v-box-content">
+
+                    <table border="1px" borderColor="#04545a" style="width: 100%; height: 100%; border-spacing: 2px;">
+                        <tr>
+                            <td>
+                                <div class="data-box">
+                                    <div class="data-box-header">
+                                        <span class="data-box-title">主变</span>
+                                        <span class="data-box-summary"><span class="data-span">2200</span>条</span>
+                                    </div>
+                                    <div class="data-box-content-left">
+                                        <p class="p1">未复归</p>
+                                        <p class="p2"><span class="data-span">100</span>条</p>
+                                    </div>
+                                    <div class="data-box-content-right">
+                                        <p class="p1">频发</p>
+                                        <p class="p2"><span class="data-span">100</span>条</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="data-box">
+                                    <div class="data-box-header">
+                                        <span class="data-box-title">母线</span>
+                                        <span class="data-box-summary"><span class="data-span">2200</span>条</span>
+                                    </div>
+                                    <div class="data-box-content-left">
+                                        <p class="p1">未复归</p>
+                                        <p class="p2"><span class="data-span">100</span>条</p>
+                                    </div>
+                                    <div class="data-box-content-right">
+                                        <p class="p1">频发</p>
+                                        <p class="p2"><span class="data-span">100</span>条</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="data-box">
+                                    <div class="data-box-header">
+                                        <span class="data-box-title">开关</span>
+                                        <span class="data-box-summary"><span class="data-span">2200</span>条</span>
+                                    </div>
+                                    <div class="data-box-content-left">
+                                        <p class="p1">未复归</p>
+                                        <p class="p2"><span class="data-span">100</span>条</p>
+                                    </div>
+                                    <div class="data-box-content-right">
+                                        <p class="p1">频发</p>
+                                        <p class="p2"><span class="data-span">100</span>条</p>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="data-box">
+                                    <div class="data-box-header">
+                                        <span class="data-box-title">刀闸</span>
+                                        <span class="data-box-summary"><span class="data-span">2200</span>条</span>
+                                    </div>
+                                    <div class="data-box-content-left">
+                                        <p class="p1">未复归</p>
+                                        <p class="p2"><span class="data-span">100</span>条</p>
+                                    </div>
+                                    <div class="data-box-content-right">
+                                        <p class="p1">频发</p>
+                                        <p class="p2"><span class="data-span">100</span>条</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="data-box">
+                                    <div class="data-box-header">
+                                        <span class="data-box-title">电容器</span>
+                                        <span class="data-box-summary"><span class="data-span">2200</span>条</span>
+                                    </div>
+                                    <div class="data-box-content-left">
+                                        <p class="p1">未复归</p>
+                                        <p class="p2"><span class="data-span">100</span>条</p>
+                                    </div>
+                                    <div class="data-box-content-right">
+                                        <p class="p1">频发</p>
+                                        <p class="p2"><span class="data-span">100</span>条</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="data-box">
+                                    <div class="data-box-header">
+                                        <span class="data-box-title">电抗器</span>
+                                        <span class="data-box-summary"><span class="data-span">2200</span>条</span>
+                                    </div>
+                                    <div class="data-box-content-left">
+                                        <p class="p1">未复归</p>
+                                        <p class="p2"><span class="data-span">100</span>条</p>
+                                    </div>
+                                    <div class="data-box-content-right">
+                                        <p class="p1">频发</p>
+                                        <p class="p2"><span class="data-span">100</span>条</p>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="g-container" style="width: 100%; height: 24%;">
+            <div class="v-box" style="height: 100%;">
+                <div class="v-box-header">全网职责移交情况</div>
+                <div class="v-box-content">
+                    <table class="fancy-table2">
+                        <tr>
+                            <td rowspan="3">
+                                <img class="img1" src="assets/images/card_light.png" alt=""/>
+                                <p class="p1">移交站数目</p>
+                                <p class="p2"><span class="data-span">11</span>座</p>
+                            </td>
+                            <td rowspan="3">
+                                <img class="img1" src="assets/images/card_yj1.png" alt=""/>
+                                <p class="p1">平均移交时长</p>
+                                <p class="p2"><span class="data-span">1111</span>时</p>
+                            </td>
+                            <td rowspan="3" style="border-right: 1px dashed #04545a">
+                                <img class="img1" src="assets/images/card_yj2.png" alt=""/>
+                                <p class="p1">未收回移交</p>
+                                <p class="p2"><span class="data-span">22</span>个</p>
+                            </td>
+                            <td width="150px">
+                                <span class="sp1">移交次数最多网省</span>
+                                <span class="sp2">浙江</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="sp1">移交时长最长网省</span>
+                                <span class="sp2">上海</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="sp1">未收回次数最多网省</span>
+                                <span class="sp2">上海</span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="g-container" style="width: 100%; height: 46%;">
+            <div class="v-box" style="height: 100%;">
+                <div class="v-box-header">省级结果上送</div>
+                <div class="v-box-content">
+                    <table class="fancy-table3">
+                        <tr>
+                            <td rowspan="2" width="24%">
+                                <div id="ec_pie1" style="width: 100%; height: 100%;"></div>
+                            </td>
+                            <td colspan="5"><span class="sp1">数据上报率排名较低的省级单位</span><span class="sp2">更多&gt;&gt;</span></td>
+                        </tr>
+                        <tr>
+                            <td>青海60%</td>
+                            <td>青海60%</td>
+                            <td>青海60%</td>
+                            <td>青海60%</td>
+                            <td>青海60%</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="2" width="100px">
+                                <div id="ec_pie2" style="width: 100%; height: 100%;"></div>
+                            </td>
+                            <td colspan="5"><span class="sp1">月报上报质量排名较低的省级单位</span><span class="sp2">更多&gt;&gt;</span></td>
+                        </tr>
+                        <tr>
+                            <td>青海60%</td>
+                            <td>青海60%</td>
+                            <td>青海60%</td>
+                            <td>青海60%</td>
+                            <td>青海60%</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="2" width="100px">
+                                <div id="ec_pie3" style="width: 100%; height: 100%;"></div>
+                            </td>
+                            <td colspan="5"><span class="sp1">指标上报质量排名较低的省级单位</span><span class="sp2">更多&gt;&gt;</span></td>
+                        </tr>
+                        <tr>
+                            <td>青海60%</td>
+                            <td>青海60%</td>
+                            <td>青海60%</td>
+                            <td>青海60%</td>
+                            <td>青海60%</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<script type="text/javascript" src="assets/js/manageCabin.chart.js"></script>
+<script type="text/javascript" src="assets/js/manageCabin.js"></script>
+
+</body>
+</html>
